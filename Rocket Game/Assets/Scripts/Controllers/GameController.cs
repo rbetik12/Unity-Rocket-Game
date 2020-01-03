@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour {
     private Rigidbody2D rocketRb;
     private int spikesAmount = 0;
     private int score = 0;
+    private int highscore;
     private int spikesX = 10;
     private int distance_between_spikes = 17;
     private bool gameStarted = false;
@@ -20,6 +21,16 @@ public class GameController : MonoBehaviour {
     private const float SPIKES_SPEED = 7f;
 
     void Start() {
+        PlayerData data = SaveSystem.LoadData();
+
+        if (data == null)
+            highscore = 0;
+        else {
+            highscore = data.highscore;
+        }
+
+        Debug.Log("Highscore: " + highscore);
+
         rocket = GameObject.Find("Rocket");
         rocketController = rocket.GetComponent<RocketController>();
         rocketController.StartFire();
@@ -35,6 +46,8 @@ public class GameController : MonoBehaviour {
             if (!rocketController.IsAlive()) {
                 StopSpikes();
                 ActivateRestart();
+                SaveHighscore();
+                return;
             }
             UpdateScore();
         }
@@ -50,6 +63,13 @@ public class GameController : MonoBehaviour {
 
     public void IncScore() {
         score += 1;
+    }
+
+    private void SaveHighscore() {
+        if (score > highscore)
+            SaveSystem.SaveData(new PlayerData(score));
+        else
+            SaveSystem.SaveData(new PlayerData(highscore));
     }
 
     private void CheckForExit() {

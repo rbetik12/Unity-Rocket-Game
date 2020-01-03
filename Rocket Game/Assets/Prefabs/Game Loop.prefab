@@ -40,9 +40,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 167001819452344303}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d485720ed53dc9f4dbb2c0120c042608, type: 3}
+  m_Script: {fileID: 11500000, guid: f0dd52b89b7b5b1499125de1a480175d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spikes: {fileID: 5690767146639985839, guid: faf90f69b9f90ca49b32def7b0b68a8f, type: 3}
   scoreLabel: {fileID: 0}
   restartLabel: {fileID: 0}
+  pressToStartLabel: {fileID: 0}
