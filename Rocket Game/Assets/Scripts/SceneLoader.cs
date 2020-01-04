@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class SceneLoader: MonoBehaviour {
+public class SceneLoader : MonoBehaviour {
 
-    public void LoadGameScene() {
+    public static void LoadGameScene() {
         SceneManager.LoadScene("Game Scene 2.0");
     }
 
@@ -14,5 +14,9 @@ public class SceneLoader: MonoBehaviour {
         while (!asyncLoad.isDone) {
             yield return null;
         }
+    }
+
+    public static void LoadStartScene() {
+        SceneManager.LoadScene("Start Screen");
     }
 }

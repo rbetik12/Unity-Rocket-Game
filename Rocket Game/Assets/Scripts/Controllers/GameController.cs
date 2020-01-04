@@ -74,7 +74,7 @@ public class GameController : MonoBehaviour {
 
     private void CheckForExit() {
         if (Input.GetKeyDown(KeyCode.Escape))
-            Application.Quit();
+            SceneLoader.LoadStartScene();
     }
 
     private void CheckForStart() {

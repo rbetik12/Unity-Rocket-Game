@@ -3,11 +3,10 @@ using UnityEngine.EventSystems;
 using TMPro;
 
 public class StartButtonEvents : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
-    [SerializeField] SceneLoader sceneLoader;
     [SerializeField] TextMeshProUGUI startLabel;
 
     public void OnPointerClick(PointerEventData eventData) {
-        sceneLoader.LoadGameScene();
+        SceneLoader.LoadGameScene();
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
