@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class RocketController : MonoBehaviour {
 
@@ -13,10 +13,12 @@ public class RocketController : MonoBehaviour {
     private bool fireStarted = false;
     private GameController gameController;
     private ParticleSystem fireParticleSys;
+    private AudioSource audioSource;
 
     void Start() {
         gameController = GameObject.Find("Game Loop").GetComponent<GameController>();
         fireParticleSys = GameObject.Find("Fire").GetComponent<ParticleSystem>();
+        audioSource = GetComponent<AudioSource>();
 
         rb = rocket.GetComponent<Rigidbody2D>();
 
@@ -36,11 +38,12 @@ public class RocketController : MonoBehaviour {
         if (spacePressed) {
             rb.AddForce(Vector2.up * Time.deltaTime * gravity * 2f);
             spacePressed = false;
+            audioSource.PlayOneShot(audioSource.clip);
         }
     }
 
     private void HandleInput() {
-        if (alive && Input.GetKeyDown(KeyCode.Space)) {
+        if (alive && (Input.GetKeyDown(KeyCode.Space))) {
             spacePressed = true;
         }
     }
