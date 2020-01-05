@@ -5,6 +5,7 @@ using UnityEngine.Audio;
 public class RocketController : MonoBehaviour {
 
     [SerializeField] private GameObject rocket;
+    [SerializeField] private AudioClip[] sounds;
 
     private Rigidbody2D rb;
     private float gravity;
@@ -38,7 +39,7 @@ public class RocketController : MonoBehaviour {
         if (spacePressed) {
             rb.AddForce(Vector2.up * Time.deltaTime * gravity * 2f);
             spacePressed = false;
-            audioSource.PlayOneShot(audioSource.clip);
+            audioSource.PlayOneShot(sounds[0]);
         }
     }
 
@@ -55,9 +56,12 @@ public class RocketController : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.tag.Equals("Spikes") || other.gameObject.tag.Equals("Wall")) {
-            alive = false;
             spacePressed = false;
             rb.velocity = new Vector3(0, 0, 0);
+            if (alive) {
+                audioSource.PlayOneShot(sounds[1]);
+            }
+            alive = false;
         }
     }
 
