@@ -78,7 +78,7 @@ public class GameController : MonoBehaviour {
     }
 
     private void CheckForStart() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetKeyDown(KeyCode.Space) || Input.touchCount > 0) {
             gameStarted = true;
             rocketRb.bodyType = RigidbodyType2D.Dynamic;
             rocketController.StopFire();
