@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class RocketController : MonoBehaviour {
 
@@ -19,9 +18,9 @@ public class RocketController : MonoBehaviour {
     void Start() {
         gameController = GameObject.Find("Game Loop").GetComponent<GameController>();
         fireParticleSys = GameObject.Find("Fire").GetComponent<ParticleSystem>();
-        audioSource = GetComponent<AudioSource>();
 
         rb = rocket.GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
 
         gravity = rb.gravityScale;
         alive = true;
@@ -38,6 +37,7 @@ public class RocketController : MonoBehaviour {
     private void FixedUpdate() {
         if (spacePressed) {
             rb.AddForce(Vector2.up * Time.deltaTime * gravity * 2f);
+            Debug.Log("Force applied");
             spacePressed = false;
             audioSource.PlayOneShot(sounds[0]);
         }
@@ -45,7 +45,15 @@ public class RocketController : MonoBehaviour {
 
     private void HandleInput() {
         if (alive && (Input.GetKeyDown(KeyCode.Space))) {
+            Debug.Log("Space pressed");
             spacePressed = true;
+        }
+        else if (alive && Input.touchCount > 0) {
+            Debug.Log("Touch count: " + Input.touchCount);
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Ended) {
+                spacePressed = true;
+            }
         }
     }
 
