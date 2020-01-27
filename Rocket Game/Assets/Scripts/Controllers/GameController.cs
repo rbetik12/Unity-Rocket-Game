@@ -42,12 +42,14 @@ public class GameController : MonoBehaviour {
 
     void Update() {
         if (gameStarted) {
-            SpawnSpikes();
+            if (rocketController.IsAlive())
+                SpawnSpikes();
             if (!rocketController.IsAlive()) {
+                if (rocketController.IsRestartClicked())
+                    SceneLoader.LoadGameScene();
                 StopSpikes();
                 ActivateRestart();
                 SaveHighscore();
-                return;
             }
             UpdateScore();
         }

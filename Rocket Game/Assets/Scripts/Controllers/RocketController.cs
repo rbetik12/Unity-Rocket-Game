@@ -11,6 +11,7 @@ public class RocketController : MonoBehaviour {
     private bool alive = true;
     private bool spacePressed = false;
     private bool fireStarted = false;
+    private bool restartClicked = false;
     private GameController gameController;
     private ParticleSystem fireParticleSys;
     private AudioSource audioSource;
@@ -28,10 +29,29 @@ public class RocketController : MonoBehaviour {
     }
 
     void Update() {
-        if (!alive) return;
+        if (!alive) {
+            HandleRestartInput();
+            if (restartClicked)
+                return;
+        }
         HandleInput();
         RotateRocket();
         SpawnParticles();
+    }
+
+    private void HandleRestartInput() {
+        if ((Input.GetKeyDown(KeyCode.Space))) {
+            restartClicked = true;
+        } else if (Input.touchCount > 0) {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Ended) {
+                restartClicked = true;
+            }
+        }
+    }
+
+    public bool IsRestartClicked() {
+        return restartClicked;
     }
 
     private void FixedUpdate() {
@@ -47,8 +67,7 @@ public class RocketController : MonoBehaviour {
         if (alive && (Input.GetKeyDown(KeyCode.Space))) {
             Debug.Log("Space pressed");
             spacePressed = true;
-        }
-        else if (alive && Input.touchCount > 0) {
+        } else if (alive && Input.touchCount > 0) {
             Debug.Log("Touch count: " + Input.touchCount);
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Ended) {
