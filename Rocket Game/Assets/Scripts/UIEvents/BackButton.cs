@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BackButton : MonoBehaviour
 {
+    [SerializeField] private LevelLoader levelLoader;
     public void OnClick(){
-        SceneLoader.LoadStartScene();
+        levelLoader.LoadGameScene(0);
     }
 }
